@@ -1,0 +1,56 @@
+package sampling;
+import java.util.Scanner;
+import java.util.regex.*;
+import java.util.*;
+
+public class sampling {
+    public static Scanner sc = new Scanner(System.in);; 
+    //Euclidean distance
+    public static void main(String[] args){
+        Euclidean();
+    }
+    
+    public static void Euclidean(){
+        
+        Vector X = new Vector();
+        Vector Y = new Vector();
+        System.out.println("Euclidean Distance");
+        System.out.print("Enter the elements in first vector : ");
+        String x = sc.nextLine();
+
+        StringTokenizer st = new StringTokenizer(x," ");
+        while(st.hasMoreTokens()){
+            String m = st.nextToken();
+            if(Pattern.matches("[0-9]*",m))
+                X.add(Integer.parseInt(m));
+        }
+        
+        System.out.print("Enter the elements in second vector : ");
+        x = sc.nextLine();
+        st = new StringTokenizer(x," ");
+        while(st.hasMoreTokens()){
+            String m = st.nextToken();
+            if(Pattern.matches("[0-9]*",m))
+                Y.add(Integer.parseInt(m));
+        }
+        double ED=0;
+        if(X.size() == Y.size() ){
+        Iterator it1 = X.iterator();
+        Iterator it2 = Y.iterator();
+        while(it1.hasNext()){
+            ED = Math.pow(((int)it1.next()-(int)it1.next()),2);
+            System.out.println(" "+ED);
+        }
+        ED = Math.sqrt(ED);
+        }
+        
+        else{
+            System.out.println("Vector sizes are not same");
+            return;
+        }
+        //X.forEach((n) -> System.out.println(n));
+        //Y.forEach((n) -> System.out.println(n));
+
+        System.out.println("\n"+ED);
+    }
+}
