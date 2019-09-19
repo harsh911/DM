@@ -2,7 +2,7 @@ package apriori;
 import java.util.*;
 import java.io.*;
 
-public class apriori {
+public class Apriori {
     public static void main(String []args) throws IOException{
         ArrayList<ArrayList<String>> list = new ArrayList<>();
         
@@ -10,7 +10,7 @@ public class apriori {
         int msc = 2;
         //msc = new Scanner(System.in).nextInt();
         //try{
-        FileReader fr = new FileReader("C:\\Users\\Harshad\\Documents\\NetBeansProjects\\DataMining\\src\\apriori\\transactions.txt");
+        FileReader fr = new FileReader("C:\\Users\\student\\Documents\\NetBeansProjects\\Apriori\\src\\apriori\\transcations.txt");
         BufferedReader br = new BufferedReader(fr);
         String s;
         ArrayList<String> tid = new ArrayList();
@@ -185,52 +185,27 @@ public class apriori {
         System.out.println(next); 
                 System.out.println("Permutate"); 
         n=1;
-        ArrayList alist = new ArrayList();
-        permutate(next,alist,items,sz-n+1,n,-1);
-        
+        permutate(next,new LinkedList<Integer>(),items,sz-n+1,n,-1);
         System.out.println(items);
-        
+        System.out.println("\n\n");
     }
-    public static void permutate(ArrayList next,ArrayList alist,Map items,int size,int step,int it){
-         if(step==0){  
-            alist.add(next.get(it));
-            items.put(alist,0);
-            System.out.println("added :" +next.get(it)+" "+alist+" "+items);
-            alist.clear();            
-            System.out.println("deleted "+next.get(it)+" "+alist+" "+items);
-
-            //
-            return;
-         }
-        for(int i=it+1;i<size;i++){
-            System.out.println("Permutate called : "+alist+" "+items+" "+size+" "+step+" "+i);
-            permutate(next,alist,items,size+1,step-1,i);
-            items.put(alist,0);
-            System.out.println("added :" +next.get(i)+" "+alist+" "+items);
-            alist.clear();            
-            System.out.println("deleted "+next.get(i)+" "+alist+" "+items);
-
-            //items.put(alist,0);
-            //alist.remove(next.get(i));
-        }
-        
-    }
-    /* 
-            for(int i=0; i<sz-n+1;i++){
-            for(int j=i+1;j<sz-n+2;j++){
-                for(int k=j+1;k<sz-n+3;k++){
-                   for(int l=k+1;l<sz-n+4;l++){
-                    ArrayList a = new ArrayList();
-                    a.add(next.get(i));
-                    a.add(next.get(j));
-                    a.add(next.get(k));
-                    a.add(next.get(l));
-                    items.put(a,0);
-                   }
-                }
+    public static void permutate(ArrayList next,LinkedList l,Map items,int size,int n,int it){
+        l.add(it+1);
+        for(int i=it+1;i<size;i++){ 
+           System.out.println("Permutate called : "+l+" "+items+" "+size+" "+n+" "+i);
+           if(n==1){
+                ArrayList alist = new ArrayList();  
+                l.forEach(k -> alist.add(next.get((int)(k))));
+                items.put(alist,0);
+                System.out.println("added :" +l+" "+alist+" "+items);
+                l.remove(i);
+               // System.out.println("deleted "+l+" "+alist+" "+items);
+                return;
             }
+           else
+            permutate(next,l,items,size+1,n-1,i);
         }
-    */
+    }
 }
 //}
        // catch(IOException e){
