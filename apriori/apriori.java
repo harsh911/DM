@@ -2,7 +2,7 @@ package apriori;
 import java.util.*;
 import java.io.*;
 
-public class Apriori {
+public class apriori {
     public static void main(String []args) throws IOException{
         ArrayList<ArrayList<String>> list = new ArrayList<>();
         
@@ -10,7 +10,7 @@ public class Apriori {
         int msc = 2;
         //msc = new Scanner(System.in).nextInt();
         //try{
-        FileReader fr = new FileReader("C:\\Users\\student\\Documents\\NetBeansProjects\\Apriori\\src\\apriori\\transcations.txt");
+        FileReader fr = new FileReader("C:\\Users\\Harshad\\Documents\\NetBeansProjects\\DataMining\\src\\apriori\\transactions.txt");
         BufferedReader br = new BufferedReader(fr);
         String s;
         ArrayList<String> tid = new ArrayList();
@@ -48,17 +48,10 @@ public class Apriori {
         int sz = next.size();
         Collections.sort(next);
         int n = 2;
-        for(int i=0; i<sz-n+1;i++){
-            for(int j=i+1;j<sz-n+2;j++){
-                ArrayList a = new ArrayList();
-                a.add(next.get(i));
-                a.add(next.get(j));
-                items.put(a,0);
-            }
-        }
+        permutate(next,new LinkedList<Integer>(),items,sz-n+1,n,-1);
             
         next.clear();
-        //System.out.println(items);  
+        System.out.println(items);  
         for(ArrayList k: items.keySet()){
             for(ArrayList j: list){
                 if(j.containsAll(k)){
@@ -94,18 +87,8 @@ public class Apriori {
         
         System.out.println(items);*/
         Collections.sort(next);
-        n = 3;
-        for(int i=0; i<sz-n+1;i++){
-            for(int j=i+1;j<sz-n+2;j++){
-                for(int k=j+1;k<sz-n+3;k++){
-                    ArrayList a = new ArrayList();
-                    a.add(next.get(i));
-                    a.add(next.get(j));
-                    a.add(next.get(k));
-                    items.put(a,0);
-                }
-            }
-        }
+        n = 4;
+        permutate(next,new LinkedList<Integer>(),items,sz-n+1,n,-1);
         System.out.println(items);
         next.clear();
         nexts.clear();
@@ -184,27 +167,23 @@ public class Apriori {
         */
         System.out.println(next); 
                 System.out.println("Permutate"); 
-        n=1;
+        n=4;
         permutate(next,new LinkedList<Integer>(),items,sz-n+1,n,-1);
         System.out.println(items);
         System.out.println("\n\n");
     }
     public static void permutate(ArrayList next,LinkedList l,Map items,int size,int n,int it){
-        l.add(it+1);
         for(int i=it+1;i<size;i++){ 
-           System.out.println("Permutate called : "+l+" "+items+" "+size+" "+n+" "+i);
+           l.add(i);
            if(n==1){
-                ArrayList alist = new ArrayList();  
+               ArrayList alist = new ArrayList();  
                 l.forEach(k -> alist.add(next.get((int)(k))));
                 items.put(alist,0);
-                System.out.println("added :" +l+" "+alist+" "+items);
-                l.remove(i);
-               // System.out.println("deleted "+l+" "+alist+" "+items);
-                return;
             }
            else
             permutate(next,l,items,size+1,n-1,i);
-        }
+           l.pollLast();
+        } 
     }
 }
 //}
